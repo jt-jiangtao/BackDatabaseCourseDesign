@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,14 +24,15 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler(value = MissingServletRequestParameterException.class)
     @ResponseBody
     public UnifyResponse handleMissingServletRequestParameterException(HttpServletRequest request,MissingServletRequestParameterException exception){
-        return new UnifyResponse(10201, exception.getParameterName());
+        return new UnifyResponse(1003, exception.getParameterName() + " 参数缺失");
     }
 
     @ExceptionHandler(value = HttpMessageNotReadableException.class)
     @ResponseBody
     public UnifyResponse handleHttpMessageNotReadableException(HttpServletRequest request,HttpMessageNotReadableException exception){
-        return new UnifyResponse(10202, exception.getRootCause().getLocalizedMessage().split("\n")[0]);
+        return new UnifyResponse(1004, exception.getRootCause().getLocalizedMessage().split("\n")[0]);
     }
+
 
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
@@ -38,7 +40,8 @@ public class GlobalExceptionAdvice {
     public UnifyResponse handleException(HttpServletRequest request,Exception exception) {
         log.error(exception.getStackTrace().toString());
         exception.printStackTrace();
-        return new UnifyResponse(10203);
+        if (exception instanceof MethodArgumentTypeMismatchException) return new UnifyResponse(1006);
+        return new UnifyResponse(1005);
     }
 
     @ExceptionHandler(value = HttpException.class)

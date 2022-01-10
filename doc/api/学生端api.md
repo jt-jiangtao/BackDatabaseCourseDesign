@@ -19,17 +19,25 @@
 
 ##### data
 
-|   属性   |     类型      |          说明          |                      备注                       |
-| :------: | :-----------: | :--------------------: | :---------------------------------------------: |
-|  token   |    string     |         token          |                                                 |
-|   role   | list\<string> | 角色，用户所对应的身份 | STUDENT、TEACHER、SUPER_MANAGER、DEPT_MANAGER等 |
-| username |      int      |         用户名         |                                                 |
+|   属性   |    类型     |          说明          |                      备注                       |
+| :------: | :---------: | :--------------------: | :---------------------------------------------: |
+|  token   |   string    |         token          |                                                 |
+| roleList | list\<role> | 角色，用户所对应的身份 | STUDENT、TEACHER、SUPER_MANAGER、DEPT_MANAGER等 |
+| username |     int     |         用户名         |                                                 |
+
+##### role
+
+```
+"id": 1,
+"roleName": "STUDENT",
+"status": true
+```
 
 
 
 ### 选择学年
 
-> GET /api/student/yearTerm
+> GET /api/yearTerm
 >
 > ```
 > SELECT * FROM yearTerm;
@@ -60,14 +68,14 @@
 
 ##### Body
 
-| 属性  |  类型  |                      说明                      |         备注          | 是否必填 |
-| :---: | :----: | :--------------------------------------------: | :-------------------: | :------: |
-| year  | string |                      学年                      |       2021-2022       |    否    |
-| term  | string |                      学期                      |  第一学期、第二学期   |    否    |
-|  all  |  bool  | 是否为所有学年成绩（该参数优先级比学年学期高） |                       |    是    |
-| token | string |                token，验证身份                 |                       |    是    |
-| type  | string |          成绩类型，平时成绩、原始成绩          | ORDINARY、COMPOSITION |    是    |
-|  id   |  int   |                      学号                      |                       |          |
+| 属性  |  类型  |                      说明                      |               备注               | 是否必填 |
+| :---: | :----: | :--------------------------------------------: | :------------------------------: | :------: |
+| year  | string |                      学年                      |     2021-2022（默认本学年）      |    否    |
+| term  | string |                      学期                      | 第一学期、第二学期（默认本学期） |    否    |
+|  all  |  bool  | 是否为所有学年成绩（该参数优先级比学年学期高） |         默认查询所有成绩         |    否    |
+| token | string |                token，验证身份                 |                                  |    是    |
+| type  | string |          成绩类型，平时成绩、原始成绩          | ORDINARY（默认值）、COMPOSITION  |    否    |
+|  id   |  int   |                      学号                      |                                  |    是    |
 
 #### 返回结果
 

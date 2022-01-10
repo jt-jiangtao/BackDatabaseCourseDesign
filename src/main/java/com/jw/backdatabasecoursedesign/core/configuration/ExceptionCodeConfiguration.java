@@ -10,7 +10,7 @@ import java.util.Map;
 
 @EnableConfigurationProperties(ExceptionCodeConfiguration.class)
 @ConfigurationProperties(prefix = "exception")
-@PropertySource(value = "classpath:config/exception-code.properties")
+@PropertySource(value = "classpath:config/exception-code.properties", encoding = "utf-8")
 @Component
 public class ExceptionCodeConfiguration {
     private Map<Integer, String> codes = new HashMap<>();

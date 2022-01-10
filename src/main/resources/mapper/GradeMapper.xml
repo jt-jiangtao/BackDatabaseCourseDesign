@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jw.backdatabasecoursedesign.mapper.GradeMapper">
+
+    <!--  二级缓存，默认不开启，同一个namespace可以共用  -->
+    <cache eviction="LRU" flushInterval="100000" readOnly="true" size="1024"/>
+
+    <select id="selectNormalGrade" resultType="com.jw.backdatabasecoursedesign.entity.grade.NormalGrade">
+        SELECT * FROM ordinaryScoreView
+        WHERE 1 = 1
+        <if test="all == false">
+            AND year = #{year}
+            AND term = #{term}
+        </if>
+        AND studentId = #{id}
+    </select>
+
+    <select id="selectCompositeGrade" resultType="com.jw.backdatabasecoursedesign.entity.grade.CompositeGrade">
+        SELECT *
+        FROM (
+            SELECT year,term, courseName,property, score, studyMode, grade, studentId, a.courseId, CONCAT(rank, "/", count)
+            as r
+            FROM (
+                SELECT *,
+                (
+                    SELECT COUNT(grade) FROM scoreCalculatedView AS e
+                    WHERE d.grade &lt; e.grade AND d.courseId = e.courseId
+                ) + 1 AS rank
+                FROM scoreCalculatedView as d
+            ) as a
+            JOIN
+            (
+                SELECT COUNT(*) as count, courseId
+                FROM scoreCalculatedView as b
+                GROUP BY b.courseId
+            ) as c ON a.courseId = c.courseId
+        ) as ac
+        WHERE 1 = 1
+        <if test="all == false">
+            AND year = #{year}
+            AND term = #{term}
+        </if>
+        AND studentId = #{id}
+    </select>
+</mapper>
