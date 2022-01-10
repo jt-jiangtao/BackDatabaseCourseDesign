@@ -12,9 +12,9 @@
 
 [教师端api](./教师端api.md)
 
-[系部管理员端api](./manager/系部管理员端api.md)
+[系部管理员端api](./系部管理员端api.md)
 
-[超级管理员端api](./manager/超级管理员端api.md)
+[超级管理员端api](./超级管理员端api.md)
 
 
 
