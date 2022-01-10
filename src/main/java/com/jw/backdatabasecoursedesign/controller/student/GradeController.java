@@ -2,6 +2,7 @@ package com.jw.backdatabasecoursedesign.controller.student;
 
 import com.jw.backdatabasecoursedesign.core.UnifyResponse;
 import com.jw.backdatabasecoursedesign.service.GradeService;
+import com.jw.backdatabasecoursedesign.utils.JWTUtils;
 import com.jw.backdatabasecoursedesign.utils.NowYearTerms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +20,11 @@ public class GradeController {
 
     @PostMapping("/score")
     public Object studentScore(@RequestParam(required = true, value = "token") String token,
-                               @RequestParam(required = true, value = "id")String id,
-                               @RequestParam(required = false, value = "type", defaultValue = "ORDINARY")String type,
-                               @RequestParam(required = false, value = "all", defaultValue = "true")boolean all,
-                               @RequestParam(required = false, value = "year", defaultValue = "")String year,
-                               @RequestParam(required = false, value = "term", defaultValue = "")String term){
+                               @RequestParam(required = false, value = "type", defaultValue = "ORDINARY") String type,
+                               @RequestParam(required = false, value = "all", defaultValue = "true") boolean all,
+                               @RequestParam(required = false, value = "year", defaultValue = "") String year,
+                               @RequestParam(required = false, value = "term", defaultValue = "") String term) {
+        String id = JWTUtils.getUserName(token);
         if (year.equals("")) year = NowYearTerms.nowYear();
         if (term.equals("")) term = NowYearTerms.nowTerm();
         if (!type.equals("ORDINARY") && !type.equals("COMPOSITION")) return new UnifyResponse(1202);
@@ -33,10 +34,10 @@ public class GradeController {
 
     @PostMapping("/gpa")
     public Object studentGPA(@RequestParam(required = true, value = "token") String token,
-                               @RequestParam(required = true, value = "id")String id,
-                               @RequestParam(required = false, value = "all", defaultValue = "true")boolean all,
-                               @RequestParam(required = false, value = "year", defaultValue = "")String year,
-                               @RequestParam(required = false, value = "term", defaultValue = "")String term){
+                             @RequestParam(required = false, value = "all", defaultValue = "true") boolean all,
+                             @RequestParam(required = false, value = "year", defaultValue = "") String year,
+                             @RequestParam(required = false, value = "term", defaultValue = "") String term) {
+        String id = JWTUtils.getUserName(token);
         if (year.equals("")) year = NowYearTerms.nowYear();
         if (term.equals("")) term = NowYearTerms.nowTerm();
         return gradeService.studentGPA(id, year, term, all);

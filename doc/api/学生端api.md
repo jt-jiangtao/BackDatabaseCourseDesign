@@ -75,7 +75,6 @@
 |  all  |  bool  | 是否为所有学年成绩（该参数优先级比学年学期高） |         默认查询所有成绩         |    否    |
 | token | string |                token，验证身份                 |                                  |    是    |
 | type  | string |          成绩类型，平时成绩、原始成绩          | ORDINARY（默认值）、COMPOSITION  |    否    |
-|  id   |  int   |                      学号                      |                                  |    是    |
 
 #### 返回结果
 
@@ -144,7 +143,6 @@ JOIN
 | term  | string |                    学期                    | 第一学期、第二学期 |    否    |
 |  all  |  bool  | 是否为综合绩点（该参数优先级比学年学期高） |                    |    是    |
 | token | string |              token，验证身份               |                    |    是    |
-|  id   |  int   |                    学号                    |                    |    是    |
 
 #### 返回结果
 

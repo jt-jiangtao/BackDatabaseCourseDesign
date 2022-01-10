@@ -16,7 +16,7 @@ public class JWTUtils {
     private static String KEY="d#atabase-course-desig#n";
 
     public static String createJWT(String username){
-        return createJWT(1000 * 60 * 60 * 24 * 30 , username);
+        return createJWT(1000 * 60 * 60 * 24 * 24 , username);
     }
 
     public static String createJWT(long ttlMillis,String username) {
@@ -107,10 +107,15 @@ public class JWTUtils {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
     }
 
-//    public static void main(String[] args) {
-//        String token = createJWT(1000 * 60 * 60 * 24 * 30 , "201921098412");
-//        System.out.println(token);
-//        System.out.println(parseJWT(token));
-//        System.out.println(getExp(token));
-//    }
+    public static String getUserName(String token){
+        return (String) parseJWT(token).get("username");
+    }
+
+    public static void main(String[] args) {
+        String token = createJWT(1000 * 60 * 60 * 24 * 24 , "3725001");
+        System.out.println(token);
+        System.out.println(parseJWT(token));
+        System.out.println(getUserName(token));
+        System.out.println(getExp(token));
+    }
 }
