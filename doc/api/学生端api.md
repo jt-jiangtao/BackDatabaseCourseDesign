@@ -35,6 +35,22 @@
 
 
 
+### 更改账号密码
+
+> POST  /api/bank/update
+
+#### 请求参数
+
+##### Body
+
+#### 返回参数
+
+##### data
+
+
+
+
+
 ### 选择学年
 
 > GET /api/yearTerm

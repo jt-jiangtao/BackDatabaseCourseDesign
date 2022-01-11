@@ -10,4 +10,7 @@ spring:
 server:
   servlet:
     context-path: /api
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 

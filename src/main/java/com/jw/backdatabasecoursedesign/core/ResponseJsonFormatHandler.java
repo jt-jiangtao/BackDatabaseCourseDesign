@@ -37,7 +37,7 @@ public class ResponseJsonFormatHandler implements ResponseBodyAdvice {
         if (UnifyResponse.class.getName().equals(clazz.getName())){
             unifyResponse = (UnifyResponse) body;
         }else {
-            unifyResponse = new UnifyResponse(10204);
+            unifyResponse = new UnifyResponse(1020);
             if (body instanceof String){
                 unifyResponse.setData(body);
             }else {

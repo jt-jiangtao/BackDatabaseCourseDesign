@@ -23,7 +23,10 @@ public class TeacherProportionController {
     }
 
     @PostMapping("/update")
-    public Object proportionUpdate(){
-        return null;
+    public Object proportionUpdate(@RequestParam(required = true, value = "token")String token,
+                                   @RequestParam(required = true, value = "courseId")Integer courseId,
+                                   @RequestParam(required = true, value = "normalProportion")Double normalProportion,
+                                   @RequestParam(required = true, value = "examProportion")Double examProportion){
+        return teacherProportionService.updateCourseProportion(courseId, JWTUtils.getUserName(token), normalProportion, examProportion);
     }
 }

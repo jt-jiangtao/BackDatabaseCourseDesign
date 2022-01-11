@@ -7,4 +7,31 @@
     <!--  二级缓存，默认不开启，同一个namespace可以共用  -->
     <cache eviction="LRU" flushInterval="100000" readOnly="true" size="1024"/>
 
+    <insert id="addOrdinaryItem">
+            INSERT INTO ordinaryScoreItem(ordinaryScoreId, name, time, proportion)
+        <foreach collection="items" item="item" index="index" separator=" UNION DISTINCT ">
+            SELECT os.id AS ordinaryScoreId, #{item.name} AS name, #{item.time} AS time, #{item.proportion} AS proportion FROM ordinaryScore AS os
+            WHERE os.courseId IN
+            (
+            SELECT c.id AS courseId FROM course AS c WHERE c.id = #{courseId} AND teacherId = #{id} AND status = 1
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteOrdinaryItem">
+        DELETE FROM ordinaryScoreItem WHERE id IN
+        <foreach collection="list" item="arr" index="index" open="(" separator="," close=")">
+            #{arr}
+        </foreach>
+    </delete>
+
+    <select id="selectOrdinaryScoreByTeacher" resultType="com.jw.backdatabasecoursedesign.entity.grade.OrdinaryScoreWithStudentName">
+        SELECT year, term, courseName, time, o.name AS typeName, score, studentId, s.name AS studentName, p1 AS proportionInCourse, p2 AS proportionInOrdinary, itemId FROM ordinaryScoreViewWithProportion AS o
+            JOIN studentInfo AS s ON o.studentId = s.number
+        WHERE courseId = #{courseId}
+            AND teacherId = #{teacherId}
+            <if test="itemId != -1">
+                AND itemId = #{itemId}
+            </if>
+    </select>
 </mapper>

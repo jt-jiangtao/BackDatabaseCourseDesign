@@ -1,5 +1,6 @@
 package com.jw.backdatabasecoursedesign.service.impl;
 
+import com.jw.backdatabasecoursedesign.core.UnifyResponse;
 import com.jw.backdatabasecoursedesign.entity.grade.CompositeGrade;
 import com.jw.backdatabasecoursedesign.mapper.GradeMapper;
 import com.jw.backdatabasecoursedesign.service.GradeService;
@@ -57,7 +58,7 @@ public class GradeServiceImpl implements GradeService {
         Map<String, Object> res = new HashMap();
         if (Type.isNullList(compositeGradeList)){
             res.put("gpaStatus", "该学生(" + id + ")没有考试成绩，无法计算GPA");
-            return res;
+            return new UnifyResponse(1301, res);
         }
         double scoreGPA = 0;
         double scoreSum = 0;

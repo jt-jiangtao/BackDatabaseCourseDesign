@@ -1,6 +1,7 @@
 package com.jw.backdatabasecoursedesign.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jw.backdatabasecoursedesign.core.UnifyResponse;
 import com.jw.backdatabasecoursedesign.entity.course.Course;
 import com.jw.backdatabasecoursedesign.mapper.TeacherClassMapper;
 import com.jw.backdatabasecoursedesign.service.TeacherClassService;
@@ -42,7 +43,7 @@ public class TeacherClassServiceImpl implements TeacherClassService {
         Map<String, Object> map = new HashMap<>();
         if (Type.isNullList(courses)){
             map.put("status", "查询到的结果为空");
-            return map;
+            return new UnifyResponse(1501, map);
         }
         map.put("courses", courses);
         map.put("year", year);

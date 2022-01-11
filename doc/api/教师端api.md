@@ -1,10 +1,10 @@
-### 登陆
+### 登陆==ok==
 
 > 同学生端
 
 
 
-### 所有所带班级
+### 所有所带班级==ok==
 
 > POST /api/teacher/course
 
@@ -45,7 +45,7 @@
 
 
 
-### 平时成绩与期末考试比例查看
+### 平时成绩与期末考试比例查看==ok==
 
 > POST  /api/teacher/proportion/get
 
@@ -70,7 +70,7 @@
 
 
 
-### 平时成绩与期末开始比例修改
+### 平时成绩与期末开始比例修改==ok==
 
 > POST  /api/teacher/proportion/update
 
@@ -89,29 +89,18 @@
 
 ##### data
 
-null
+
+| 属性             | 类型   | 说明         | 备注 |
+| ---------------- | ------ | ------------ | ---- |
+| normalProportion | double | 平时成绩占比 |      |
+| examProportion   | double | 考试成绩占比 |      |
+| id               | int    | 课程编号     |      |
 
 
 
-### 平时成绩项增加
+### 平时成绩项修改==ok==
 
-> POST /api/teacher/normalScore/item/add
-
-#### 请求参数
-
-##### Body
-
-#### 返回参数
-
-##### data
-
-
-
-
-
-### 平时成绩项删除
-
-> POST /api/teacher/normalScore/item/delete
+> POST /api/teacher/normalScore/item/update
 
 #### 请求参数
 
@@ -123,23 +112,9 @@ null
 
 
 
-### 平时成绩项修改
+### 平时成绩项查看==ok==
 
-> POST /api/teacher/normalScore/item/upadte
-
-#### 请求参数
-
-##### Body
-
-#### 返回参数
-
-##### data
-
-
-
-### 平时成绩项查看
-
-> POST /api/teacher/normalScore/item
+> POST /api/teacher/normalScore/item/get
 
 #### 请求参数
 
@@ -151,9 +126,9 @@ null
 
 
 
-### 平时成绩查看
+### 平时成绩查看==ok==
 
-> POST /api/teacher/normalScore
+> POST /api/teacher/normalScore/get
 
 #### 请求参数
 
@@ -165,11 +140,9 @@ null
 
 
 
+### 平时成绩增加（excel：下载模板文件）==ok==
 
-
-### 平时成绩增加（excel：下载模板文件）
-
-> POST /api/teacher/normalScore/add/excel
+> POST /api/teacher/normalScore/download/excel
 
 #### 请求参数
 
@@ -209,7 +182,7 @@ null
 
 
 
-### 平时成绩增加（excel|sql|前端填写： 最终提交文件）
+### 平时成绩增加（json提交）
 
 > POST /api/teacher/normalScore/add
 
@@ -309,7 +282,7 @@ null
 
 
 
-### 考试成绩增加（excel|sql|前端填写： 最终提交文件）
+### 考试成绩增加（json提交）
 
 > POST /api/teacher/examScore/add
 
