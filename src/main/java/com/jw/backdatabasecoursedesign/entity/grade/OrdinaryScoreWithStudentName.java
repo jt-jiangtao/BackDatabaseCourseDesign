@@ -46,4 +46,7 @@ public class OrdinaryScoreWithStudentName {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer itemId;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Integer studentOrdinaryScoreItemId;
 }

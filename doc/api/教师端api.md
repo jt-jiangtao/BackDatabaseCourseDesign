@@ -154,7 +154,7 @@
 
 
 
-### 平时成绩增加（excel：上传文件）
+### 平时成绩增加（excel：上传文件）==ok==
 
 > POST /api/teacher/normalScore/upload/excel
 
@@ -168,7 +168,7 @@
 
 
 
-### 平时成绩增加（sql：上传文件）
+### 平时成绩增加（sql：上传文件）==ok==
 
 > POST /api/teacher/normalScore/upload/sql
 
@@ -182,7 +182,7 @@
 
 
 
-### 平时成绩增加（json提交）
+### 平时成绩增加（json提交）==ok==
 
 > POST /api/teacher/normalScore/add
 
@@ -198,7 +198,7 @@
 
 
 
-### 平时成绩删除
+### 平时成绩删除==ok==
 
 >  POST /api/teacher/normalScore/delete
 
@@ -212,7 +212,7 @@
 
 
 
-### 平时成绩修改
+### 平时成绩修改==ok==
 
 > POST /api/teacher/normalScore/update
 
@@ -226,9 +226,9 @@
 
 
 
-### 考试成绩查看
+### 汇总成绩的查看==ok==
 
-> POST /api/teacher/normalScore/add/excel
+> POST /api/teacher/examScore/getFinal
 
 #### 请求参数
 
@@ -240,7 +240,21 @@
 
 
 
-### 考试成绩增加（excel：下载模板文件）
+### 考试成绩查看==ok==
+
+> POST /api/teacher/examScore/get
+
+#### 请求参数
+
+##### Body
+
+#### 返回参数
+
+##### data
+
+
+
+### 考试成绩增加（excel：下载模板文件）==ok==
 
 > POST /api/teacher/examScore/download/excel
 
@@ -254,7 +268,7 @@
 
 
 
-### 考试成绩增加（excel：上传文件）
+### 考试成绩增加（excel：上传文件）==ok==
 
 > POST /api/teacher/examScore/upload/excel
 
@@ -268,7 +282,7 @@
 
 
 
-### 考试成绩增加（sql：上传文件）
+### 考试成绩增加（sql：上传文件）==ok==
 
 > POST /api/teacher/examScore/upload/sql
 
@@ -282,7 +296,7 @@
 
 
 
-### 考试成绩增加（json提交）
+### 考试成绩增加（json提交）==ok==
 
 > POST /api/teacher/examScore/add
 

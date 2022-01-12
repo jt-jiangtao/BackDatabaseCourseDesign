@@ -112,7 +112,7 @@ public class JWTUtils {
     }
 
     public static void main(String[] args) {
-        String token = createJWT(1000 * 60 * 60 * 24 * 24 , "3725002");
+        String token = createJWT(1000 * 60 * 60 * 24 * 24 , "3725001");
         System.out.println(token);
         System.out.println(parseJWT(token));
         System.out.println(getUserName(token));
