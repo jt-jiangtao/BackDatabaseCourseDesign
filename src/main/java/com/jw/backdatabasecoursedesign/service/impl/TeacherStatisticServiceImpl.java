@@ -41,7 +41,12 @@ public class TeacherStatisticServiceImpl implements TeacherStatisticService {
     public Object courseExtremeInfo(String id, Integer courseId) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         TeacherGradeMapper teacherGradeMapper = sqlSession.getMapper(TeacherGradeMapper.class);
-        return teacherGradeMapper.selectMinMaxAvg(id, courseId);
+        Map<String, Object> extreme = teacherGradeMapper.selectMinMaxAvg(id, courseId);
+        List<Map<String, Object>> sortedScore = teacherGradeMapper.getCourseSortedScore(id, courseId);
+        Map<String, Object> res = new HashMap<>();
+        res.put("extreme", extreme);
+        res.put("sortedScore", sortedScore);
+        return res;
     }
 
     @Override

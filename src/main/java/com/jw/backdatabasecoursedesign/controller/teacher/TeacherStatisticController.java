@@ -18,13 +18,13 @@ public class TeacherStatisticController {
 
     @PostMapping("/fail")
     public Object courseFailInfo(@RequestParam(required = true, value = "token")String token,
-                                 @RequestParam(required = false, value = "courseId", defaultValue = "-1")Integer courseId) {
+                                 @RequestParam(required = true, value = "courseId")Integer courseId) {
         return teacherStatisticService.courseFailInfo(JWTUtils.getUserName(token), courseId);
     }
 
     @PostMapping("/extreme")
     public Object courseExtremeInfo(@RequestParam(required = true, value = "token")String token,
-                                    @RequestParam(required = false, value = "courseId", defaultValue = "-1")Integer courseId){
+                                    @RequestParam(required = true, value = "courseId")Integer courseId){
         return teacherStatisticService.courseExtremeInfo(JWTUtils.getUserName(token), courseId);
     }
 

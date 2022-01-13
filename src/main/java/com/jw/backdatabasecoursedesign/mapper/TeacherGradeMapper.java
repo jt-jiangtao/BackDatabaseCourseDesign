@@ -231,4 +231,11 @@ public interface TeacherGradeMapper {
             "          AND teacherId = #{id}\n" +
             "          AND courseId = #{courseId};</script>")
     List<Map<String, Object>> teacherUndoOrdinaryItemScore(String id, Integer courseId);
+
+    @Select("SELECT *\n" +
+            "FROM totalScoreView\n" +
+            "WHERE teacherId = #{id}\n" +
+            "  AND courseId = #{courseId}\n" +
+            "ORDER BY score DESC;")
+    List<Map<String, Object>> getCourseSortedScore(String id, Integer courseId);
 }
