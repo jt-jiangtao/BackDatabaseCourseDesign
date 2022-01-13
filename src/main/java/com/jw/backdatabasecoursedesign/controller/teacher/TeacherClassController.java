@@ -18,8 +18,8 @@ public class TeacherClassController {
 
     @PostMapping("/course")
     public Object getTeacherCourse(@RequestParam(required = true, value = "id") String id,
-                                   @RequestParam(required = true, value = "year", defaultValue = "") String year,
-                                   @RequestParam(required = true, value = "term", defaultValue = "") String term) {
+                                   @RequestParam(required = false, value = "year", defaultValue = "") String year,
+                                   @RequestParam(required = false, value = "term", defaultValue = "") String term) {
         if (year.equals("")) year = NowYearTerms.nowYear();
         if (term.equals("")) term = NowYearTerms.nowTerm();
         return teacherClassService.getTeacherClass(id, year, term);
