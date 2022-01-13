@@ -1,6 +1,6 @@
-### 查看学校所有专业
+### 查看学校所有专业==ok==
 
-> POST   /api/all/dept
+> POST   /api/school/dept
 
 #### 请求参数
 

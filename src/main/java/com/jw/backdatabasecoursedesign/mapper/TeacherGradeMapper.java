@@ -104,13 +104,13 @@ public interface TeacherGradeMapper {
             "         JOIN class ON studentInfo.classId = class.id\n" +
             "         JOIN specialty ON class.specialtyId = specialty.id\n" +
             "WHERE courseId = #{courseId}\n" +
-            "  AND scoreCalculatedView.teacherId = #{id};")
+            "  AND scoreCalculatedView.teacherId = #{id} ORDER BY grade DESC")
     List<Map<String, Object>> getFinalScore(Integer courseId, String id);
 
     @Select("SELECT *\n" +
             "FROM courseExaminationScore\n" +
             "WHERE courseId = #{courseId}\n" +
-            "  AND teacherId = #{id};")
+            "  AND teacherId = #{id} ORDER BY score DESC")
     List<Map<String, Object>> getCourseExaminationScore(Integer courseId, String id);
 
     @Select("SELECT examination.id AS id\n" +
@@ -133,4 +133,102 @@ public interface TeacherGradeMapper {
     int updateExaminationStudentItem(String id, Integer studentExaminationScoreId, Double newScore);
 
     int deleteExaminationStudentItem(String id, List<Integer> studentExaminationScoreId);
+
+    @Select("SELECT * FROM totalScoreView as t\n" +
+            "WHERE t.courseId = #{courseId} AND t.teacherId = #{id} AND (t.examinationScore < 43 OR t.score < 60)")
+    List<Map<String, Object>> selectCourseFailStudent(String id, Integer courseId);
+
+    @Select("SELECT CAST(MAX(t.score) AS DECIMAL(5, 2)) AS max,\n" +
+            "       CAST(AVG(t.score) AS DECIMAL(5, 2)) AS avg,\n" +
+            "       CAST(MIN(t.score) AS DECIMAL(5, 2)) AS min\n" +
+            "FROM totalScoreView as t\n" +
+            "WHERE t.courseId = #{courseId}\n" +
+            "  AND t.teacherId = #{id};")
+    Map<String, Object> selectMinMaxAvg(String id, Integer courseId);
+
+    @Select("<script>SELECT studentId,\n" +
+            "        course.id        AS courseId,\n" +
+            "        studyMode,\n" +
+            "        teacherId,\n" +
+            "        startTime,\n" +
+            "        endTime,\n" +
+            "        score,\n" +
+            "        time,\n" +
+            "        introduce,\n" +
+            "        property,\n" +
+            "        examinationId,\n" +
+            "        course.name      AS courseName,\n" +
+            "        proportion,\n" +
+            "        grade,\n" +
+            "        studentInfo.name AS studentName,\n" +
+            "        classNumber\n" +
+            "        FROM studentCourse\n" +
+            "        JOIN course ON studentCourse.courseId = course.id\n" +
+            "        JOIN examination ON examination.id = course.examinationId\n" +
+            "        JOIN studentInfo ON studentId = studentInfo.number\n" +
+            "        WHERE (studentId, examinationId) NOT IN (\n" +
+            "        SELECT studentId, examinationId\n" +
+            "        FROM studentExamination\n" +
+            "        )\n" +
+            "        AND course.status = 1\n" +
+            "        <if test=\"courseId != -1\">\n" +
+            "            AND examination.courseId = #{courseId}\n" +
+            "        </if>\n" +
+            "        AND teacherId = #{id};</script>")
+    List<Map<String, Object>> teacherUndoExaminationScore(String id, Integer courseId);
+
+    @Select("<script>SELECT studentId,\n" +
+            "               ordinaryScore.courseId       AS courseId,\n" +
+            "               studyMode,\n" +
+            "               teacherId,\n" +
+            "               startTime,\n" +
+            "               endTime,\n" +
+            "               score,\n" +
+            "               introduce,\n" +
+            "               property,\n" +
+            "               examinationId,\n" +
+            "               course.name                  AS courseName,\n" +
+            "               ordinaryScoreItem.id         AS ordianryScoreItemId,\n" +
+            "               ordinaryScore.proportion     AS ordinaryScoreProportion,\n" +
+            "               ordinaryScoreItem.proportion AS ordinaryScoreItemProportion,\n" +
+            "               ordinaryScoreItem.name       AS ordinaryScoreItemName,\n" +
+            "               studentInfo.name             AS studentName,\n" +
+            "               classNumber\n" +
+            "        FROM studentCourse\n" +
+            "                 JOIN course ON studentCourse.courseId = course.id\n" +
+            "                 JOIN ordinaryScore ON course.ordinaryScoreId = ordinaryScore.id\n" +
+            "                 JOIN ordinaryScoreItem ON ordinaryScore.id = ordinaryScoreItem.ordinaryScoreId\n" +
+            "                 JOIN studentInfo ON studentId = studentInfo.number\n" +
+            "        WHERE (studentId, ordinaryScoreItem.id) NOT IN (\n" +
+            "            SELECT studentId, ordinaryScoreItemId\n" +
+            "            FROM studentOrdinaryScoreItem\n" +
+            "        )\n" +
+            "          AND course.status = 1\n" +
+            "          <if test=\"courseId != -1\">\n" +
+            "              AND ordinaryScore.courseId = #{courseId}\n" +
+            "          </if>\n" +
+            "          AND teacherId = #{id};</script>")
+    List<Map<String, Object>> teacherUndoStudentOrdinaryScore(String id, Integer courseId);
+
+    @Select("<script>SELECT ordinaryScoreId,\n" +
+            "               courseId,\n" +
+            "               proportion AS ordinaryProportion,\n" +
+            "               startTime,\n" +
+            "               endTime,\n" +
+            "               score,\n" +
+            "            time,\n" +
+            "            introduce,\n" +
+            "            property,\n" +
+            "            name,\n" +
+            "            classNumber\n" +
+            "        FROM ordinaryScore\n" +
+            "            JOIN course ON course.ordinaryScoreId = ordinaryScore.id\n" +
+            "        WHERE ordinaryScoreId NOT IN (\n" +
+            "            SELECT ordinaryScoreItem.ordinaryScoreId\n" +
+            "            FROM ordinaryScoreItem\n" +
+            "            )\n" +
+            "          AND status = 1\n" +
+            "          AND teacherId = #{id}\n" +
+            "          AND courseId = #{courseId};</script>")
+    List<Map<String, Object>> teacherUndoOrdinaryItemScore(String id, Integer courseId);
 }

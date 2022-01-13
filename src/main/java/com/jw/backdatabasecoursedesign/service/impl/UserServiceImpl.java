@@ -46,4 +46,14 @@ public class UserServiceImpl implements UserService {
         res.put("token", JWTUtils.createJWT(username));
         return res;
     }
+
+    @Override
+    public Object updatePassword(String username, String password, String newPassword) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        int status = userMapper.updatePassword(username, password, newPassword);
+        if (status <= 0) return new UnifyResponse(1104);
+        sqlSession.commit();
+        return new UnifyResponse(1020);
+    }
 }

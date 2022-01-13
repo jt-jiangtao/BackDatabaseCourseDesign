@@ -1,4 +1,4 @@
-### 登录
+### 登录==ok==
 
 > POST  /api/login
 >
@@ -35,7 +35,7 @@
 
 
 
-### 更改账号密码
+### 更改账号密码==ok==
 
 > POST  /api/bank/update
 
@@ -51,7 +51,7 @@
 
 
 
-### 选择学年
+### 选择学年==ok==
 
 > GET /api/yearTerm
 >
@@ -76,7 +76,7 @@
 
 
 
-### 查询成绩
+### 查询成绩==ok==
 
 > POST /api/student/score
 
@@ -145,7 +145,7 @@ JOIN
 
 
 
-### 绩点查询
+### 绩点查询==ok==
 
 > POST /api/student/gpa
 

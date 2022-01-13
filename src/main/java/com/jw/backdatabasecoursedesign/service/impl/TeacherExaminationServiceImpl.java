@@ -325,6 +325,7 @@ public class TeacherExaminationServiceImpl implements TeacherExaminationService 
 
     @Override
     public Object updateStudentExaminationScore(String id, Integer studentExaminationScoreId, Double newScore) {
+        if (newScore > 100 || newScore < 0) return new UnifyResponse(1904);
         SqlSession sqlSession = sqlSessionFactory.openSession();
         TeacherGradeMapper teacherGradeMapper = sqlSession.getMapper(TeacherGradeMapper.class);
         int status = teacherGradeMapper.updateExaminationStudentItem(id, studentExaminationScoreId, newScore);

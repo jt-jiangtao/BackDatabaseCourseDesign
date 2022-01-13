@@ -10,4 +10,5 @@ public interface UserService {
 
     Object login(String username, String password);
 
+    Object updatePassword(String username, String password, String newPassword);
 }

@@ -310,7 +310,7 @@
 
 
 
-### 考试成绩删除
+### 考试成绩删除==ok==
 
 > POST /api/teacher/examScore/delete
 
@@ -324,7 +324,7 @@
 
 
 
-### 考试成绩修改
+### 考试成绩修改==ok==
 
 > POST /api/teacher/examScore/update
 
@@ -338,21 +338,7 @@
 
 
 
-### 班级成绩分布
-
-> POST /api/teacher/distribute
-
-#### 请求参数
-
-##### Body
-
-#### 返回参数
-
-##### data
-
-
-
-### 班级不及格人数及信息
+### 班级不及格人数及信息==ok==
 
 > POST /api/teacher/fail
 
@@ -366,7 +352,7 @@
 
 
 
-### 最低分、最高分、平均分
+### 最低分、最高分、平均分==ok==
 
 > POST /api/teacher/extreme
 
@@ -380,7 +366,7 @@
 
 
 
-### 查看未录完的信息
+### 查看未录完的信息==ok==
 
 > POST /api/teacher/unfinished
 

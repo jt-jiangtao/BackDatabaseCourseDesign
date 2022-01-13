@@ -45,6 +45,96 @@
               );
     </delete>
 
+<!--    <select id="teacherUndoExaminationScore" resultType="List">-->
+<!--        SELECT studentId,-->
+<!--        course.id        AS courseId,-->
+<!--        studyMode,-->
+<!--        teacherId,-->
+<!--        startTime,-->
+<!--        endTime,-->
+<!--        score,-->
+<!--        time,-->
+<!--        introduce,-->
+<!--        property,-->
+<!--        examinationId,-->
+<!--        course.name      AS courseName,-->
+<!--        proportion,-->
+<!--        grade,-->
+<!--        studentInfo.name AS studentName,-->
+<!--        classNumber-->
+<!--        FROM studentCourse-->
+<!--        JOIN course ON studentCourse.courseId = course.id-->
+<!--        JOIN examination ON examination.id = course.examinationId-->
+<!--        JOIN studentInfo ON studentId = studentInfo.number-->
+<!--        WHERE (studentId, examinationId) NOT IN (-->
+<!--        SELECT studentId, examinationId-->
+<!--        FROM studentExamination-->
+<!--        )-->
+<!--        AND course.status = 1-->
+<!--        <if test="courseId != -1">-->
+<!--            AND examination.courseId = #{courseId}-->
+<!--        </if>-->
+<!--        AND teacherId = #{id};-->
+<!--    </select>-->
+
+<!--    <select id="teacherUndoStudentOrdinaryScore" resultType="List">-->
+<!--        SELECT studentId,-->
+<!--               ordinaryScore.courseId       AS courseId,-->
+<!--               studyMode,-->
+<!--               teacherId,-->
+<!--               startTime,-->
+<!--               endTime,-->
+<!--               score,-->
+<!--               introduce,-->
+<!--               property,-->
+<!--               examinationId,-->
+<!--               course.name                  AS courseName,-->
+<!--               ordinaryScoreItem.id         AS ordianryScoreItemId,-->
+<!--               ordinaryScore.proportion     AS ordinaryScoreProportion,-->
+<!--               ordinaryScoreItem.proportion AS ordinaryScoreItemProportion,-->
+<!--               ordinaryScoreItem.name       AS ordinaryScoreItemName,-->
+<!--               ordinaryScoreItem.time       AS ordinaryScoreItemTime,-->
+<!--               studentInfo.name             AS studentName,-->
+<!--               classNumber-->
+<!--        FROM studentCourse-->
+<!--                 JOIN course ON studentCourse.courseId = course.id-->
+<!--                 JOIN ordinaryScore ON course.ordinaryScoreId = ordinaryScore.id-->
+<!--                 JOIN ordinaryScoreItem ON ordinaryScore.id = ordinaryScoreItem.ordinaryScoreId-->
+<!--                 JOIN studentInfo ON studentId = studentInfo.number-->
+<!--        WHERE (studentId, ordinaryScoreItem.id) NOT IN (-->
+<!--            SELECT studentId, ordinaryScoreItemId-->
+<!--            FROM studentOrdinaryScoreItem-->
+<!--        )-->
+<!--          AND course.status = 1-->
+<!--          <if test="courseId != -1">-->
+<!--              AND ordinaryScore.courseId = #{courseId}-->
+<!--          </if>-->
+<!--          AND teacherId = #{id};-->
+<!--    </select>-->
+
+<!--    <select id="teacherUndoOrdinaryItemScore" resultType="List">-->
+<!--        SELECT ordinaryScoreId,-->
+<!--               courseId,-->
+<!--               proportion AS ordinaryProportion,-->
+<!--               startTime,-->
+<!--               endTime,-->
+<!--               score,-->
+<!--            time,-->
+<!--            introduce,-->
+<!--            property,-->
+<!--            name,-->
+<!--            classNumber-->
+<!--        FROM ordinaryScore-->
+<!--            JOIN course ON course.ordinaryScoreId = ordinaryScore.id-->
+<!--        WHERE ordinaryScoreId NOT IN (-->
+<!--            SELECT ordinaryScoreItem.ordinaryScoreId-->
+<!--            FROM ordinaryScoreItem-->
+<!--            )-->
+<!--          AND status = 1-->
+<!--          AND teacherId = #{id}-->
+<!--          AND courseId = #{courseId};-->
+<!--    </select>-->
+
     <select id="selectOrdinaryScoreByTeacher" resultType="com.jw.backdatabasecoursedesign.entity.grade.OrdinaryScoreWithStudentName">
         SELECT year, term, courseName, time, o.name AS typeName, score, studentId, s.name AS studentName, p1 AS proportionInCourse, p2 AS proportionInOrdinary, itemId, studentOrdinaryScoreItemId FROM ordinaryScoreViewWithProportion AS o
             JOIN studentInfo AS s ON o.studentId = s.number

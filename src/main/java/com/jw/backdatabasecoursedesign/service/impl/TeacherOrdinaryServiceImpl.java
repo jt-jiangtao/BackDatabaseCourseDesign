@@ -347,10 +347,11 @@ public class TeacherOrdinaryServiceImpl implements TeacherOrdinaryService {
 
     @Override
     public Object updateStudentOrdinaryScore(String id, Integer studentOrdinaryScoreId, Double newScore) {
+        if (newScore > 100 || newScore < 0) return new UnifyResponse(1802);
         SqlSession sqlSession = sqlSessionFactory.openSession();
         TeacherGradeMapper teacherGradeMapper = sqlSession.getMapper(TeacherGradeMapper.class);
         int status = teacherGradeMapper.updateOrdinaryStudentItem(id, studentOrdinaryScoreId, newScore);
-        if (status <= 0 ){
+        if (status <= 0) {
             sqlSession.rollback();
             return new UnifyResponse(1815);
         }
