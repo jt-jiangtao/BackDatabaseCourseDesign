@@ -116,6 +116,6 @@ public class JWTUtils {
         System.out.println(token);
         System.out.println(parseJWT(token));
         System.out.println(getUserName(token));
-        System.out.println(getExp(token));
+        System.out.println(isVerify(token + 1));
     }
 }

@@ -22,27 +22,31 @@ public class DepartmentInfoController {
                                    @RequestParam(required = false, value = "specialtyId", defaultValue = "-1") Integer specialtyId,
                                    @RequestParam(required = false, value = "year", defaultValue = "") String year,
                                    @RequestParam(required = false, value = "term", defaultValue = "") String term,
-                                   @RequestParam(required = false, value = "all", defaultValue = "true")Boolean all) {
+                                   @RequestParam(required = false, value = "all", defaultValue = "true")Boolean all,
+                                   @RequestParam(required = true, value = "deptId")Integer deptId) {
         // 想要不全选必须all设置为false
         if (year.equals("")) year = NowYearTerms.nowYear();
         if (term.equals("")) term = NowYearTerms.nowTerm();
-        return departmentInfoService.departmentCourse(JWTUtils.getUserName(token), specialtyId, year, term, all);
+        return departmentInfoService.departmentCourse(JWTUtils.getUserName(token), specialtyId, year, term, all, deptId);
     }
 
     @PostMapping("/specialty")
-    public Object departmentSpecialty(@RequestParam(required = true, value = "token")String token){
-        return departmentInfoService.departmentSpecialty(JWTUtils.getUserName(token));
+    public Object departmentSpecialty(@RequestParam(required = true, value = "token")String token,
+                                      @RequestParam(required = true, value = "deptId")Integer deptId){
+        return departmentInfoService.departmentSpecialty(JWTUtils.getUserName(token), deptId);
     }
 
     @PostMapping("/teacher")
     public Object departmentTeacher(@RequestParam(required = true, value = "token")String token,
-                                    @RequestParam(required = false, value = "specialtyId", defaultValue = "-1")Integer specialtyId){
-        return departmentInfoService.departmentTeacher(JWTUtils.getUserName(token), specialtyId);
+                                    @RequestParam(required = false, value = "specialtyId", defaultValue = "-1")Integer specialtyId,
+                                    @RequestParam(required = true, value = "deptId")Integer deptId){
+        return departmentInfoService.departmentTeacher(JWTUtils.getUserName(token), specialtyId, deptId);
     }
 
     @PostMapping("/class")
     public Object departmentClass(@RequestParam(required = true, value = "token")String token,
-                                  @RequestParam(required = false, value = "specialtyId", defaultValue = "-1")Integer specialtyId){
-        return departmentInfoService.departmentClass(JWTUtils.getUserName(token), specialtyId);
+                                  @RequestParam(required = false, value = "specialtyId", defaultValue = "-1")Integer specialtyId,
+                                  @RequestParam(required = true, value = "deptId")Integer deptId){
+        return departmentInfoService.departmentClass(JWTUtils.getUserName(token), specialtyId, deptId);
     }
 }

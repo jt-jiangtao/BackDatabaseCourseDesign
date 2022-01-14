@@ -7,4 +7,45 @@
     <!--  二级缓存，默认不开启，同一个namespace可以共用  -->
     <cache eviction="LRU" flushInterval="100000" readOnly="true" size="1024"/>
 
+    <resultMap id="StudentCourse" type="com.jw.backdatabasecoursedesign.entity.grade.NormalStudent">
+        <id property="studentId" column="studentId"/>
+        <result property="name" column="name"/>
+        <result property="specialtyName" column="specialtyName"/>
+        <result property="className" column="className"/>
+        <result property="studentSpecialtyId" column="studentSpecialtyId"/>
+        <result property="studentClassId" column="studentClassId"/>
+        <result property="nowGrade" column="nowGrade"/>
+        <collection property="courses" ofType="com.jw.backdatabasecoursedesign.entity.grade.NormalCourse">
+            <result property="year" column="year"/>
+            <result property="term" column="term"/>
+            <result property="courseName" column="courseName"/>
+            <result property="property" column="property"/>
+            <result property="courseScore" column="courseScore"/>
+            <result property="studyMode" column="studyMode"/>
+            <result property="score" column="score"/>
+            <result property="courseId" column="courseId"/>
+            <result property="teacherId" column="teacherId"/>
+            <result property="grade" column="grade"/>
+            <result property="examinationScore" column="examinationScore"/>
+            <result property="ordinaryScoreProportion" column="ordinaryScoreProportion"/>
+            <result property="examinationProportion" column="examinationProportion"/>
+            <result property="examinationId" column="examinationId"/>
+            <result property="studentExaminationId" column="studentExaminationId"/>
+            <result property="ordinaryScore" column="ordinaryScore"/>
+            <result property="teacherDeptId" column="teacherDeptId"/>
+        </collection>
+    </resultMap>
+
+    <select id="getFilterScore" resultMap="StudentCourse">
+        SELECT name, studentWithDepartment.studentId as number, nowGrade, totalScoreWithDepartmentView.*
+        FROM studentWithDepartment
+        LEFT JOIN totalScoreWithDepartmentView
+        ON studentWithDepartment.studentId = totalScoreWithDepartmentView.studentId
+        WHERE 1=1
+        <if test="all != true"> AND totalScoreWithDepartmentView.year = #{year} AND totalScoreWithDepartmentView.term = #{term} </if>
+        <if test="specialtyId != -1"> AND studentWithDepartment.specialtyId = #{specialtyId} </if>
+        <if test="nowGrade != -1"> AND nowGrade = #{nowGrade} </if>
+        <if test="classId != -1"> AND classId = #{classId} </if>
+        AND studentWithDepartment.deptId = #{deptId};
+    </select>
 </mapper>

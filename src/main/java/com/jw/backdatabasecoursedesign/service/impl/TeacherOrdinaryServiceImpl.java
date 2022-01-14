@@ -4,6 +4,7 @@ import com.jw.backdatabasecoursedesign.core.UnifyResponse;
 import com.jw.backdatabasecoursedesign.entity.course.CourseStudent;
 import com.jw.backdatabasecoursedesign.entity.excel.ExcelParse;
 import com.jw.backdatabasecoursedesign.entity.grade.OrdinaryScoreItem;
+import com.jw.backdatabasecoursedesign.entity.grade.OrdinaryScoreWithStudentName;
 import com.jw.backdatabasecoursedesign.entity.grade.OrdinaryStudentScore;
 import com.jw.backdatabasecoursedesign.mapper.TeacherGradeMapper;
 import com.jw.backdatabasecoursedesign.service.TeacherOrdinaryService;
@@ -57,7 +58,12 @@ public class TeacherOrdinaryServiceImpl implements TeacherOrdinaryService {
     public Object getOrdinaryScoreByTeacher(Integer courseId, Integer itemId, String teacherId) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         TeacherGradeMapper teacherGradeMapper = sqlSession.getMapper(TeacherGradeMapper.class);
-        return teacherGradeMapper.selectOrdinaryScoreByTeacher(courseId, itemId, teacherId);
+        List<OrdinaryScoreWithStudentName> finish = teacherGradeMapper.selectOrdinaryScoreByTeacher(courseId, itemId, teacherId);
+        List<Map<String, Object>> undo = teacherGradeMapper.teacherUndoStudentOrdinaryScore(teacherId, courseId);
+        Map<String, Object> res = new HashMap<>();
+        res.put("finish", finish);
+        res.put("undo", undo);
+        return res;
     }
 
     @Override

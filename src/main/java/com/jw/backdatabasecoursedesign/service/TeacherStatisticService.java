@@ -10,4 +10,6 @@ public interface TeacherStatisticService {
     Object courseExtremeInfo(String id, Integer courseId);
 
     Object putUnfinishedInfo(String id, Integer courseId);
+
+    Object courseDistribute(String id, Integer courseId);
 }

@@ -1,4 +1,4 @@
-### 查看所有课程信息(专业)
+### 查看所有课程信息(专业)==ok==
 
 > POST  /api/dept/courses
 
@@ -12,7 +12,7 @@
 
 
 
-### 查看专业信息
+### 查看专业信息==ok==
 
 > POST  /api/dept/specialty
 
@@ -26,7 +26,7 @@
 
 
 
-### 查看教师信息(专业)
+### 查看教师信息(专业)==ok==
 
 > POST  /api/dept/teacher
 
@@ -40,7 +40,7 @@
 
 
 
-### 查看班级信息(专业)
+### 查看班级信息(专业)==ok==
 
 > POST  /api/dept/class
 
@@ -54,7 +54,7 @@
 
 
 
-### 查看教师录入成绩情况
+### 查看教师录入成绩情况==ok==
 
 > 调用教师端查看录入成绩情况接口
 >
@@ -64,7 +64,7 @@
 
 ### 专业成绩分布
 
-> POST  /api/dept/pro/distribute
+> POST  /api/dept/distribute
 
 #### 请求参数
 
@@ -78,7 +78,7 @@
 
 ### 专业不及格人数(挂科)
 
-> POST  /api/dept/pro/fail
+> POST  /api/dept/fail
 
 #### 请求参数
 
@@ -92,7 +92,7 @@
 
 ### 专业最低、最高、平均（绩点）、排名
 
-> POST  /api/dept/pro/extreme
+> POST  /api/dept/extreme
 
 #### 请求参数
 
@@ -101,46 +101,3 @@
 #### 返回参数
 
 ##### data
-
-
-
-### 班级成绩分布（绩点）
-
-> POST  /api/dept/class/distribute
-
-#### 请求参数
-
-##### Body
-
-#### 返回参数
-
-##### data
-
-
-
-### 班级不及格人数（挂科）
-
-> POST  /api/dept/class/fail
-
-#### 请求参数
-
-##### Body
-
-#### 返回参数
-
-##### data
-
-
-
-### 班级最低、最高、平均（绩点）、排名
-
-> POST  /api/dept/class/extreme
-
-#### 请求参数
-
-##### Body
-
-#### 返回参数
-
-##### data
-

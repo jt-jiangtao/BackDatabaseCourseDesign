@@ -59,4 +59,11 @@ public class TeacherStatisticServiceImpl implements TeacherStatisticService {
         res.put("ordinaryScore", teacherGradeMapper.teacherUndoStudentOrdinaryScore(id, courseId));
         return res;
     }
+
+    @Override
+    public Object courseDistribute(String id, Integer courseId) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        TeacherGradeMapper teacherGradeMapper = sqlSession.getMapper(TeacherGradeMapper.class);
+        return teacherGradeMapper.getCourseSortedScore(id, courseId);
+    }
 }

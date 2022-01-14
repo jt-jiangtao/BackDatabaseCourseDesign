@@ -16,6 +16,12 @@ public class TeacherStatisticController {
     @Autowired
     private TeacherStatisticService teacherStatisticService;
 
+    @PostMapping("/distribute")
+    public Object courseDistribute(@RequestParam(required = true, value = "token")String token,
+                                   @RequestParam(required = true, value = "courseId")Integer courseId){
+        return teacherStatisticService.courseDistribute(JWTUtils.getUserName(token), courseId);
+    }
+
     @PostMapping("/fail")
     public Object courseFailInfo(@RequestParam(required = true, value = "token")String token,
                                  @RequestParam(required = true, value = "courseId")Integer courseId) {

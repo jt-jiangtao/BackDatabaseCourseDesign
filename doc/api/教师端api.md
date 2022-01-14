@@ -352,6 +352,20 @@
 
 
 
+### 班级成绩分布==ok==
+
+> POST /api/teacher/distribute
+
+#### 请求参数
+
+##### Body
+
+#### 返回参数
+
+##### data
+
+
+
 ### 最低分、最高分、平均分==ok==
 
 > POST /api/teacher/extreme

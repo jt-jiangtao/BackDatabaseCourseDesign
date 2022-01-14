@@ -41,5 +41,11 @@ public class UnifyResponse {
     public static UnifyResponse build(int code, Object data){
         return new UnifyResponse(code, data);
     }
+
+    public UnifyResponse(int code, Object message, String request) {
+        this.code = code;
+        this.message = message;
+        this.request = request;
+    }
 }
 

@@ -59,7 +59,12 @@ public class TeacherExaminationServiceImpl implements TeacherExaminationService 
     public Object getExaminationScore(Integer courseId, String id) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         TeacherGradeMapper teacherGradeMapper = sqlSession.getMapper(TeacherGradeMapper.class);
-        return teacherGradeMapper.getCourseExaminationScore(courseId, id);
+        List<Map<String, Object>> finish = teacherGradeMapper.getCourseExaminationScore(courseId, id);
+        List<Map<String, Object>> undo = teacherGradeMapper.teacherUndoExaminationScore(id, courseId);
+        Map<String, Object> res = new HashMap<>();
+        res.put("finish", finish);
+        res.put("undo", undo);
+        return res;
     }
 
     @Override

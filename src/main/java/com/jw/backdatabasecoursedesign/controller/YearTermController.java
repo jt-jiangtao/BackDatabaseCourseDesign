@@ -4,6 +4,7 @@ import com.jw.backdatabasecoursedesign.service.YearTermService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -17,7 +18,7 @@ public class YearTermController {
     @Autowired
     private YearTermService yearTermService;
 
-    @GetMapping("/yearTerm")
+    @PostMapping("/yearTerm")
     Object getYearTerm(){
         return yearTermService.getAllYearTerm();
     }
