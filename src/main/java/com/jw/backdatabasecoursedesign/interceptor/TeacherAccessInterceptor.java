@@ -35,23 +35,25 @@ public class TeacherAccessInterceptor implements HandlerInterceptor {
             normal(request, response, 2404, "teacherId缺失");
             return false;
         }
-        if (userRight.getAllRoles().contains("TEACHER")){
-            if (! teacherId.equals(JWTUtils.getUserName(request.getParameter("token")))){
-                normal(request, response,2405, "无查看该教师信息的权限");
-                return false;
-            }
+
+        if (userRight.getAllRoles().contains("SCHOOL_MANAGER")){
+            return true;
         }else if(userRight.getAllRoles().contains("DEPT_MANAGER")){
             // 校验当前管理员是否和教师是同一个系部
             if (! userRoleService.sameDept(teacherId, userRight.getUserId())){
                 normal(request, response,2405, "无查看该教师信息的权限");
                 return false;
             }
-        }else if (userRight.getAllRoles().contains("SCHOOL_MANAGER")){
-            return true;
+        }else if (userRight.getAllRoles().contains("TEACHER")){
+            if (! teacherId.equals(JWTUtils.getUserName(request.getParameter("token")))){
+                normal(request, response,2405, "无查看该教师信息的权限");
+                return false;
+            }
         }else {
             userRoleError(request, response);
             return false;
         }
+
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 

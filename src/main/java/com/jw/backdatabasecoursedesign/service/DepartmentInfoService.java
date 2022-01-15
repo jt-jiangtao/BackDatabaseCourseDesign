@@ -5,11 +5,11 @@ package com.jw.backdatabasecoursedesign.service;
  * @Date: 2022/1/13 22:20
  */
 public interface DepartmentInfoService {
-    Object departmentCourse(String teacherId, Integer specialtyId, String year, String term, Boolean all, Integer deptId);
+    Object departmentCourse(Integer specialtyId, String year, String term, Boolean all, Integer deptId);
 
-    Object departmentSpecialty(String teacherId, Integer deptId);
+    Object departmentSpecialty(Integer deptId);
 
-    Object departmentTeacher(String teacherId, Integer specialtyId, Integer deptId);
+    Object departmentTeacher(Integer specialtyId, Integer deptId);
 
-    Object departmentClass(String teacherId, Integer specialtyId, Integer deptId);
+    Object departmentClass(Integer specialtyId, Integer deptId);
 }

@@ -21,7 +21,7 @@ public interface DepartmentGradeMapper {
             "          FROM teacherInfoWithDepartment\n" +
             "          WHERE teacherInfoWithDepartment.deptId = #{deptId}\n" +
             "      ) <if test=\"specialtyId != -1\"> AND specialtyId = #{specialtyId} </if> <if test=\"all != true\"> AND year = #{year} AND term = #{term} </if>;</script>")
-    List<Map<String, Object>> departmentCourse(String teacherId, Integer specialtyId, String year, String term, Boolean all, Integer deptId);
+    List<Map<String, Object>> departmentCourse(Integer specialtyId, String year, String term, Boolean all, Integer deptId);
 
     @Select("SELECT *\n" +
             "FROM specialtyWithDepartment\n" +
@@ -31,7 +31,7 @@ public interface DepartmentGradeMapper {
             "          FROM teacherInfoWithDepartment\n" +
             "          WHERE teacherInfoWithDepartment.deptId = #{deptId}\n" +
             "      );")
-    List<Map<String, Object>> departmentSpecialty(String teacherId, Integer deptId);
+    List<Map<String, Object>> departmentSpecialty(Integer deptId);
 
     @Select("<script>SELECT *\n" +
             "FROM teacherInfoWithDepartment\n" +
@@ -41,7 +41,7 @@ public interface DepartmentGradeMapper {
             "          FROM teacherInfoWithDepartment\n" +
             "          WHERE teacherInfoWithDepartment.deptId = #{deptId}\n" +
             "      ) <if test=\"specialtyId != -1\"> AND specialtyId = #{specialtyId} </if>;</script>")
-    List<Map<String, Object>> departmentTeacher(String teacherId, Integer specialtyId, Integer deptId);
+    List<Map<String, Object>> departmentTeacher(Integer specialtyId, Integer deptId);
 
     @Select("<script>SELECT *\n" +
             "FROM classWithDepartment\n" +
@@ -51,7 +51,7 @@ public interface DepartmentGradeMapper {
             "          FROM teacherInfoWithDepartment\n" +
             "          WHERE teacherInfoWithDepartment.deptId = #{deptId}\n" +
             "      ) <if test=\"specialtyId != -1\"> AND specialtyId = #{specialtyId} </if>;</script>")
-    List<Map<String, Object>> departmentClass(String teacherId, Integer specialtyId, Integer deptId);
+    List<Map<String, Object>> departmentClass(Integer specialtyId, Integer deptId);
 
     List<NormalStudent> getFilterScore(@Param("specialtyId") Integer specialtyId,@Param("year") String year,@Param("term") String term,@Param("all") Boolean all,@Param("deptId") Integer deptId,@Param("nowGrade") Integer nowGrade,@Param("classId") Integer classId);
 }

@@ -21,4 +21,7 @@ public class User {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Role> roleList;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String identity;
 }

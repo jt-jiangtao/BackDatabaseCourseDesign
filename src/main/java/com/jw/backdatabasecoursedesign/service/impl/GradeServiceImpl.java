@@ -68,6 +68,10 @@ public class GradeServiceImpl implements GradeService {
             scoreSum += compositeGrade.getScore();
         }
         res.put("gpa", scoreGPA / scoreSum);
+        res.put("year", year);
+        res.put("term", term);
+        res.put("all", all);
+        res.put("studentId", id);
         return res;
     }
 }

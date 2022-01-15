@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService {
         if (Type.isNull(user) || !user.getPassword().equals(password)) return new UnifyResponse(1102);
         JSONObject res = EntityToJson.parse(user,"password");
         res.put("token", JWTUtils.createJWT(username));
+        res.put("info", userMapper.getUserInfo(username, user.getIdentity()));
         return res;
     }
 

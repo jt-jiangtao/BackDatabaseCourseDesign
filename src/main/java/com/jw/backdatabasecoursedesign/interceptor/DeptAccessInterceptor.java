@@ -34,18 +34,21 @@ public class DeptAccessInterceptor implements HandlerInterceptor {
             noDeptId(request, response);
             return false;
         }
-        if (userRight.getAllRoles().contains("DEPT_MANAGER")){
+
+        if (userRight.getAllRoles().contains("SCHOOL_MANAGER")){
+            return true;
+        }else if (userRight.getAllRoles().contains("DEPT_MANAGER")){
             // 当前系部管理员是否有对应部门权限
             if (!userRoleService.deptManagerHasAccessToDept(userRight.getUserId(), deptId)) {
                 noDeptAccess(request, response);
                 return false;
             }
-        }else if (userRight.getAllRoles().contains("SCHOOL_MANAGER")){
-            return true;
         }else {
             userRoleError(request, response);
             return false;
         }
+
+
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 

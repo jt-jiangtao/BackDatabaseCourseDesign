@@ -10,6 +10,7 @@
     <resultMap id="UserWithRoles" type="com.jw.backdatabasecoursedesign.entity.user.User">
         <id property="username" column="number"/>
         <result property="password" column="password"/>
+        <result property="identity" column="identity"/>
         <collection property="roleList" ofType="com.jw.backdatabasecoursedesign.entity.role.Role">
             <id property="id" column="id"/>
             <result property="roleName" column="roleName"/>

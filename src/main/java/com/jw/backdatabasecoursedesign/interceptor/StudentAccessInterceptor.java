@@ -40,26 +40,28 @@ public class StudentAccessInterceptor  implements HandlerInterceptor {
             noStudentId(request, response);
             return false;
         }
-        if (userRight.getAllRoles().contains("STUDENT")){
+
+        if (userRight.getAllRoles().contains("SCHOOL_MANAGER")){
+            return true;
+        }else if (userRight.getAllRoles().contains("STUDENT")){
             if (! studentId.equals(JWTUtils.getUserName(request.getParameter("token")))){
                 noAccessToStudent(studentId, request, response);
                 return false;
             }
-        }else if (userRight.getAllRoles().contains("TEACHER")){
-            noAccessToStudent(studentId, request, response);
-            return false;
         }else if (userRight.getAllRoles().contains("DEPT_MANAGER")){
             // 该管理员是否有对该学生成绩单访问权限
             if (!userRoleService.deptManagerHasAccessToStudent(studentId, userRight.getUserId())) {
                 noAccessToStudent(studentId, request, response);
                 return false;
             }
-        }else if (userRight.getAllRoles().contains("SCHOOL_MANAGER")){
-            return true;
+        }else if (userRight.getAllRoles().contains("TEACHER")){
+            noAccessToStudent(studentId, request, response);
+            return false;
         }else {
             userRoleError(request, response);
             return false;
         }
+
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 

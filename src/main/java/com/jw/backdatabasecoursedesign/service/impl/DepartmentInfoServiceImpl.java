@@ -28,30 +28,30 @@ public class DepartmentInfoServiceImpl implements DepartmentInfoService {
     }
 
     @Override
-    public Object departmentCourse(String teacherId, Integer specialtyId, String year, String term, Boolean all, Integer deptId) {
+    public Object departmentCourse(Integer specialtyId, String year, String term, Boolean all, Integer deptId) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         DepartmentGradeMapper departmentGradeMapper = sqlSession.getMapper(DepartmentGradeMapper.class);
-        return departmentGradeMapper.departmentCourse(teacherId, specialtyId, year, term, all, deptId);
+        return departmentGradeMapper.departmentCourse(specialtyId, year, term, all, deptId);
     }
 
     @Override
-    public Object departmentSpecialty(String teacherId, Integer deptId) {
+    public Object departmentSpecialty(Integer deptId) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         DepartmentGradeMapper departmentGradeMapper = sqlSession.getMapper(DepartmentGradeMapper.class);
-        return departmentGradeMapper.departmentSpecialty(teacherId, deptId);
+        return departmentGradeMapper.departmentSpecialty(deptId);
     }
 
     @Override
-    public Object departmentTeacher(String teacherId, Integer specialtyId, Integer deptId) {
+    public Object departmentTeacher(Integer specialtyId, Integer deptId) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         DepartmentGradeMapper departmentGradeMapper = sqlSession.getMapper(DepartmentGradeMapper.class);
-        return departmentGradeMapper.departmentTeacher(teacherId, specialtyId, deptId);
+        return departmentGradeMapper.departmentTeacher(specialtyId, deptId);
     }
 
     @Override
-    public Object departmentClass(String teacherId, Integer specialtyId, Integer deptId) {
+    public Object departmentClass(Integer specialtyId, Integer deptId) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         DepartmentGradeMapper departmentGradeMapper = sqlSession.getMapper(DepartmentGradeMapper.class);
-        return departmentGradeMapper.departmentClass(teacherId, specialtyId, deptId);
+        return departmentGradeMapper.departmentClass(specialtyId, deptId);
     }
 }
