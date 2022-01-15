@@ -12,4 +12,6 @@ public interface UserRoleService {
 
     Boolean deptManagerHasAccessToStudent(String studentId, String teacherId);
 
+    Boolean deptManagerHasAccessToDept(String id, String deptId);
+
 }

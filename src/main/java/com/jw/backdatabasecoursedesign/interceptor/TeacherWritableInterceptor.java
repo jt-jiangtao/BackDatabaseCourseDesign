@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Author: jiangtao
  * @Date: 2022/1/15 16:20
  */
-public class GradeInputTimeAccessInterceptor implements HandlerInterceptor {
+public class TeacherWritableInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

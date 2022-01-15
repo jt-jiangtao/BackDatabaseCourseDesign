@@ -36,7 +36,10 @@ public class StudentAccessInterceptor  implements HandlerInterceptor {
             return false;
         }
         String studentId = request.getParameter("studentId");
-        if (studentId == null || studentId.equals("")) noStudentId(request, response);
+        if (studentId == null || studentId.equals("")) {
+            noStudentId(request, response);
+            return false;
+        }
         if (userRight.getAllRoles().contains("STUDENT")){
             if (! studentId.equals(JWTUtils.getUserName(request.getParameter("token")))){
                 noAccessToStudent(studentId, request, response);

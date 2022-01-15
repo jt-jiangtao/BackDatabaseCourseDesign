@@ -44,4 +44,12 @@ public class UserRoleServiceImpl implements UserRoleService {
         int count = userRoleMapper.DeptManagerHasAccessToStudent(studentId, teacherId);
         return count == 1;
     }
+
+    @Override
+    public Boolean deptManagerHasAccessToDept(String id, String deptId) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserRoleMapper userRoleMapper = sqlSession.getMapper(UserRoleMapper.class);
+        int count = userRoleMapper.deptManagerHasAccessToDept(id, deptId);
+        return count == 1;
+    }
 }

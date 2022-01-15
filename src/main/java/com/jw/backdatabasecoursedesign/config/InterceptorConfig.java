@@ -38,8 +38,9 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
         return new SchoolAccessInterceptor();
     }
 
-    @Bean GradeInputTimeAccessInterceptor getGradeInputTimeAccessInterceptor(){
-        return new GradeInputTimeAccessInterceptor();
+    @Bean
+    TeacherWritableInterceptor getTeacherWritableInterceptor(){
+        return new TeacherWritableInterceptor();
     }
 
     public void addInterceptors(InterceptorRegistry registry) {
@@ -61,7 +62,7 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
                 .addPathPatterns("/student/**")
                 .order(3);
 
-        registry.addInterceptor(getGradeInputTimeAccessInterceptor())
+        registry.addInterceptor(getTeacherWritableInterceptor())
                 .addPathPatterns("/teacher/proportion/update")
                 .addPathPatterns("/teacher/normalScore/item/update")
                 .addPathPatterns("/teacher/normalScore/download/excel")
@@ -86,7 +87,7 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter {
                 .order(6);
 
         registry.addInterceptor(getSchoolAccessInterceptor())
-                .addPathPatterns("/dept/**")
+                .addPathPatterns("/school/**")
                 .order(7);
     }
 }

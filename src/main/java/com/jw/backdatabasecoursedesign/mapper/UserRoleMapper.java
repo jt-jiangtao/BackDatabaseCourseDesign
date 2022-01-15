@@ -22,4 +22,9 @@ public interface UserRoleMapper {
             "      );")
     int DeptManagerHasAccessToStudent(String studentId, String teacherId);
 
+    @Select("SELECT COUNT(*) AS count\n" +
+            "FROM teacherInfoWithDepartment\n" +
+            "WHERE deptId = #{deptId}\n" +
+            "  AND teacherId = #{id};")
+    int deptManagerHasAccessToDept(String id, String deptId);
 }
