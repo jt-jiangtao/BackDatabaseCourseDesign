@@ -37,5 +37,6 @@
         <mapper resource="mapper/TeacherGradeMapper.xml"/>
         <mapper resource="mapper/SchoolDepartmentMapper.xml"/>
         <mapper resource="mapper/DepartmentGradeMapper.xml"/>
+        <mapper resource="mapper/UserRoleMapper.xml"/>
     </mappers>
 </configuration>

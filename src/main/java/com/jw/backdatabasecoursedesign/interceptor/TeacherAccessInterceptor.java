@@ -1,6 +1,5 @@
 package com.jw.backdatabasecoursedesign.interceptor;
 
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -9,13 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Author: jiangtao
- * @Date: 2022/1/14 22:22
+ * @Date: 2022/1/15 16:18
  */
-@Component
-public class RoleInterceptor implements HandlerInterceptor {
+public class TeacherAccessInterceptor implements HandlerInterceptor {
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("-------------------------------role verify-------------------------------");
+        System.out.println("-------------------------------teacher access verify-------------------------------");
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 

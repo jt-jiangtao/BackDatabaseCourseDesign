@@ -1,5 +1,6 @@
 package com.jw.backdatabasecoursedesign.core;
 
+import com.alibaba.fastjson.JSON;
 import com.jw.backdatabasecoursedesign.exception.http.HttpException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -41,6 +43,7 @@ public class GlobalExceptionAdvice {
         log.error(exception.getStackTrace().toString());
         exception.printStackTrace();
         if (exception instanceof MethodArgumentTypeMismatchException) return new UnifyResponse(1006);
+        if (exception instanceof HttpRequestMethodNotSupportedException) return new UnifyResponse(1007, "只支持 " + JSON.toJSONString(((HttpRequestMethodNotSupportedException) exception).getSupportedMethods()).replaceAll("\"", "'") + " 请求");
         return new UnifyResponse(1005);
     }
 

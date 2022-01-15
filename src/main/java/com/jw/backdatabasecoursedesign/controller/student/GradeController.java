@@ -23,23 +23,23 @@ public class GradeController {
                                @RequestParam(required = false, value = "type", defaultValue = "ORDINARY") String type,
                                @RequestParam(required = false, value = "all", defaultValue = "true") boolean all,
                                @RequestParam(required = false, value = "year", defaultValue = "") String year,
-                               @RequestParam(required = false, value = "term", defaultValue = "") String term) {
-        String id = JWTUtils.getUserName(token);
+                               @RequestParam(required = false, value = "term", defaultValue = "") String term,
+                               @RequestParam(required = true, value = "studentId")String studentId) {
         if (year.equals("")) year = NowYearTerms.nowYear();
         if (term.equals("")) term = NowYearTerms.nowTerm();
         if (!type.equals("ORDINARY") && !type.equals("COMPOSITION")) return new UnifyResponse(1202);
-        if (type.equals("ORDINARY")) return gradeService.studentNormalScore(id, year, term, all);
-        return gradeService.studentAllScore(id, year, term, all);
+        if (type.equals("ORDINARY")) return gradeService.studentNormalScore(studentId, year, term, all);
+        return gradeService.studentAllScore(studentId, year, term, all);
     }
 
     @PostMapping("/gpa")
     public Object studentGPA(@RequestParam(required = true, value = "token") String token,
                              @RequestParam(required = false, value = "all", defaultValue = "true") boolean all,
                              @RequestParam(required = false, value = "year", defaultValue = "") String year,
-                             @RequestParam(required = false, value = "term", defaultValue = "") String term) {
-        String id = JWTUtils.getUserName(token);
+                             @RequestParam(required = false, value = "term", defaultValue = "") String term,
+                             @RequestParam(required = true, value = "studentId")String studentId) {
         if (year.equals("")) year = NowYearTerms.nowYear();
         if (term.equals("")) term = NowYearTerms.nowTerm();
-        return gradeService.studentGPA(id, year, term, all);
+        return gradeService.studentGPA(studentId, year, term, all);
     }
 }

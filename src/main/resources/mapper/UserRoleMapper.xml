@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jw.backdatabasecoursedesign.mapper.UserRoleMapper">
+
+    <!--  二级缓存，默认不开启，同一个namespace可以共用  -->
+    <cache eviction="LRU" flushInterval="100000" readOnly="true" size="1024"/>
+
+    <resultMap id="Right" type="com.jw.backdatabasecoursedesign.entity.right.UserRight">
+        <id property="userId" column="userId"/>
+        <result property="identity" column="identity"/>
+        <collection property="roles" ofType="com.jw.backdatabasecoursedesign.entity.right.Role">
+            <id property="roleId" column="roleId"/>
+            <result property="roleName" column="roleName"/>
+            <collection property="accesses" ofType="com.jw.backdatabasecoursedesign.entity.right.Access">
+                <id property="accessId" column="accessId"/>
+                <result property="accessName" column="accessName"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="getUserRight" resultMap="Right">
+        SELECT number AS userId, identity, userRole.roleId AS roleId, roleName, accessId, accessName FROM user
+            JOIN userRole ON user.number = userRole.userId
+            JOIN role ON role.id = userRole.roleId
+            JOIN roleAccess ON role.id = roleAccess.roleId
+            JOIN access ON roleAccess.accessId = access.id
+        WHERE number = #{id};
+    </select>
+</mapper>

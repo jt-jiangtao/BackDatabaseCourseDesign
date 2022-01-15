@@ -1,6 +1,7 @@
 package com.jw.backdatabasecoursedesign.controller;
 
 import com.jw.backdatabasecoursedesign.core.UnifyResponse;
+import com.jw.backdatabasecoursedesign.service.UserRoleService;
 import com.jw.backdatabasecoursedesign.service.UserService;
 import com.jw.backdatabasecoursedesign.utils.PasswordVerifyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,4 +31,5 @@ public class UserController {
         if (password.equals(newPassword)) return new UnifyResponse(1105);
         return userService.updatePassword(username, password, newPassword);
     }
+
 }
