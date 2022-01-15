@@ -18,25 +18,29 @@ public class TeacherStatisticController {
 
     @PostMapping("/distribute")
     public Object courseDistribute(@RequestParam(required = true, value = "token")String token,
-                                   @RequestParam(required = true, value = "courseId")Integer courseId){
-        return teacherStatisticService.courseDistribute(JWTUtils.getUserName(token), courseId);
+                                   @RequestParam(required = true, value = "courseId")Integer courseId,
+                                   @RequestParam(required = true, value = "teacherId")String teacherId){
+        return teacherStatisticService.courseDistribute(teacherId, courseId);
     }
 
     @PostMapping("/fail")
     public Object courseFailInfo(@RequestParam(required = true, value = "token")String token,
-                                 @RequestParam(required = true, value = "courseId")Integer courseId) {
-        return teacherStatisticService.courseFailInfo(JWTUtils.getUserName(token), courseId);
+                                 @RequestParam(required = true, value = "courseId")Integer courseId,
+                                 @RequestParam(required = true, value = "teacherId")String teacherId) {
+        return teacherStatisticService.courseFailInfo(teacherId, courseId);
     }
 
     @PostMapping("/extreme")
     public Object courseExtremeInfo(@RequestParam(required = true, value = "token")String token,
-                                    @RequestParam(required = true, value = "courseId")Integer courseId){
-        return teacherStatisticService.courseExtremeInfo(JWTUtils.getUserName(token), courseId);
+                                    @RequestParam(required = true, value = "courseId")Integer courseId,
+                                    @RequestParam(required = true, value = "teacherId")String teacherId){
+        return teacherStatisticService.courseExtremeInfo(teacherId, courseId);
     }
 
     @PostMapping("/unfinished")
     public Object putUnfinishedInfo(@RequestParam(required = true, value = "token")String token,
-                                    @RequestParam(required = false, value = "courseId", defaultValue = "-1")Integer courseId){
-        return teacherStatisticService.putUnfinishedInfo(JWTUtils.getUserName(token), courseId);
+                                    @RequestParam(required = false, value = "courseId", defaultValue = "-1")Integer courseId,
+                                    @RequestParam(required = true, value = "teacherId")String teacherId){
+        return teacherStatisticService.putUnfinishedInfo(teacherId, courseId);
     }
 }

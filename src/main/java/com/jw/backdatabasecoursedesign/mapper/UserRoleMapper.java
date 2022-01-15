@@ -27,4 +27,23 @@ public interface UserRoleMapper {
             "WHERE deptId = #{deptId}\n" +
             "  AND teacherId = #{id};")
     int deptManagerHasAccessToDept(String id, String deptId);
+
+    @Select("SELECT COUNT(*)\n" +
+            "FROM course\n" +
+            "         JOIN yearTerm ON course.yearTermId = yearTerm.id\n" +
+            "WHERE course.id = #{courseId}\n" +
+            "  AND yearTerm.year = #{nowYear}\n" +
+            "  AND yearTerm.term = #{nowTerm};")
+    int courseYearTerm(String courseId, String nowYear, String nowTerm);
+
+    @Select("SELECT COUNT(*)\n" +
+            "FROM teacherInfoWithDepartment\n" +
+            "WHERE teacherId = #{teacherId}\n" +
+            "  AND deptId\n" +
+            "    IN (\n" +
+            "          SELECT deptId\n" +
+            "          FROM teacherInfoWithDepartment\n" +
+            "          WHERE teacherId = #{id}\n" +
+            "      );")
+    int sameDept(String teacherId, String id);
 }

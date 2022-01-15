@@ -28,51 +28,60 @@ public class TeacherExaminationController {
 
     @PostMapping("/getFinal")
     public Object getFinalExaminationScore(@RequestParam(required = false, value = "token")String token,
-                                           @RequestParam(required = false, value = "courseId")Integer courseId){
-        return teacherExaminationService.getFinalScore(courseId, JWTUtils.getUserName(token));
+                                           @RequestParam(required = false, value = "courseId")Integer courseId,
+                                           @RequestParam(required = true, value = "teacherId")String teacherId){
+        return teacherExaminationService.getFinalScore(courseId, teacherId);
     }
 
     @PostMapping("/get")
     public Object getExaminationScore(@RequestParam(required = false, value = "token")String token,
-                                      @RequestParam(required = false, value = "courseId")Integer courseId){
-        return teacherExaminationService.getExaminationScore(courseId, JWTUtils.getUserName(token));
+                                      @RequestParam(required = false, value = "courseId")Integer courseId,
+                                      @RequestParam(required = true, value = "teacherId")String teacherId){
+        return teacherExaminationService.getExaminationScore(courseId, teacherId);
     }
 
     @PostMapping("/upload/excel")
     public Object uploadExaminationExcel(@RequestParam(required = true, value = "token") String token,
                                          @RequestParam(required = true, value = "courseId") Integer courseId,
-                                         @RequestParam(required = true, value = "file") MultipartFile file) throws IOException, InvalidFormatException {
+                                         @RequestParam(required = true, value = "file") MultipartFile file,
+                                         @RequestParam(required = true, value = "teacherId")String teacherId) throws IOException, InvalidFormatException {
         if (! file.getOriginalFilename().endsWith(".xls")) return new UnifyResponse(1901);
-        return teacherExaminationService.uploadExcel(JWTUtils.getUserName(token), courseId, file);
+        return teacherExaminationService.uploadExcel(teacherId, courseId, file);
     }
 
     @PostMapping("/upload/sql")
     public Object uploadExaminationSql(@RequestParam(required = true, value = "token") String token,
                                        @RequestParam(required = true, value = "courseId") Integer courseId,
-                                       @RequestParam(required = true, value = "file") MultipartFile file) throws IOException {
+                                       @RequestParam(required = true, value = "file") MultipartFile file,
+                                       @RequestParam(required = true, value = "teacherId")String teacherId) throws IOException {
         if (! file.getOriginalFilename().endsWith(".sql")) return new UnifyResponse(1902);
-        return teacherExaminationService.uploadSQL(JWTUtils.getUserName(token), courseId, file);
+        return teacherExaminationService.uploadSQL(teacherId, courseId, file);
     }
 
     @PostMapping("/add")
     public Object addExaminationScore(@RequestParam(required = true, value = "items") String items,
                                       @RequestParam(required = true, value = "token") String token,
-                                      @RequestParam(required = true, value = "courseId") Integer courseId) {
+                                      @RequestParam(required = true, value = "courseId") Integer courseId,
+                                      @RequestParam(required = true, value = "teacherId")String teacherId) {
         List<ExaminationStudentScore> itemList = JSON.parseArray((String) items, ExaminationStudentScore.class);
-        return teacherExaminationService.checkWithCommit(itemList, courseId, JWTUtils.getUserName(token));
+        return teacherExaminationService.checkWithCommit(itemList, courseId, teacherId);
     }
 
     @PostMapping("/delete")
     public Object deleteExaminationScore(@RequestParam(required = true, value = "token") String token,
-                                         @RequestParam(required = true, value = "studentExaminationScoreId") String studentExaminationScoreId) {
+                                         @RequestParam(required = true, value = "studentExaminationScoreId") String studentExaminationScoreId,
+                                         @RequestParam(required = true, value = "teacherId")String teacherId,
+                                         @RequestParam(required = true, value = "courseId")String courseId) {
         List<Integer> studentExaminationScoreIdList = JSON.parseArray(studentExaminationScoreId, Integer.class);
-        return teacherExaminationService.deleteExaminationScore(JWTUtils.getUserName(token), studentExaminationScoreIdList);
+        return teacherExaminationService.deleteExaminationScore(teacherId, studentExaminationScoreIdList);
     }
 
     @PostMapping("/update")
     public Object updateOrdinaryScore(@RequestParam(required = true, value = "token") String token,
                                       @RequestParam(required = true, value = "studentExaminationScoreId") Integer studentExaminationScoreId,
-                                      @RequestParam(required = true, value = "newScore") Double newScore){
-        return teacherExaminationService.updateStudentExaminationScore(JWTUtils.getUserName(token), studentExaminationScoreId, newScore);
+                                      @RequestParam(required = true, value = "newScore") Double newScore,
+                                      @RequestParam(required = true, value = "teacherId")String teacherId,
+                                      @RequestParam(required = true, value = "courseId")String courseId){
+        return teacherExaminationService.updateStudentExaminationScore(teacherId, studentExaminationScoreId, newScore);
     }
 }

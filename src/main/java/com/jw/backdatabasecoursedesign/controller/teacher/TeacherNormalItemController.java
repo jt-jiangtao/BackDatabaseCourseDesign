@@ -28,7 +28,8 @@ public class TeacherNormalItemController {
     @PostMapping("/update")
     public Object normalItemUpdate(@RequestParam(required = true, value = "items") String items,
                                 @RequestParam(required = true, value = "token") String token,
-                                @RequestParam(required = true, value = "courseId") Integer courseId) {
+                                @RequestParam(required = true, value = "courseId") Integer courseId,
+                                   @RequestParam(required = true, value = "teacherId")String teacherId) {
         List<OrdinaryScoreItem> itemList = JSON.parseArray(items, OrdinaryScoreItem.class);
         if (itemList.size() == 0) return new UnifyResponse(1401);
         for (int i = 0; i < itemList.size(); i++) {
@@ -36,12 +37,13 @@ public class TeacherNormalItemController {
             if (ordinaryScoreItem.getName() == null || ordinaryScoreItem.getProportion() == null || ordinaryScoreItem.getTime() == null) return new UnifyResponse(1402);
 
         }
-        return teacherNormalItemService.updateNormalItem(JWTUtils.getUserName(token), courseId, itemList);
+        return teacherNormalItemService.updateNormalItem(teacherId, courseId, itemList);
     }
 
     @PostMapping("/get")
     public Object normalItemGet(@RequestParam(required = true, value = "token") String token,
-                                @RequestParam(required = true, value = "courseId") Integer courseId){
-        return teacherNormalItemService.getNormaItem(JWTUtils.getUserName(token), courseId);
+                                @RequestParam(required = true, value = "courseId") Integer courseId,
+                                @RequestParam(required = true, value = "teacherId")String teacherId){
+        return teacherNormalItemService.getNormaItem(teacherId, courseId);
     }
 }

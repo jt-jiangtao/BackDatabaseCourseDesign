@@ -18,15 +18,17 @@ public class TeacherProportionController {
 
     @PostMapping("/get")
     public Object proportionGet(@RequestParam(required = true, value = "token")String token,
-                                @RequestParam(required = true, value = "courseId")Integer courseId){
-        return teacherProportionService.getCourseProportion(courseId, JWTUtils.getUserName(token));
+                                @RequestParam(required = true, value = "courseId")Integer courseId,
+                                @RequestParam(required = true, value = "teacherId")String teacherId){
+        return teacherProportionService.getCourseProportion(courseId, teacherId);
     }
 
     @PostMapping("/update")
     public Object proportionUpdate(@RequestParam(required = true, value = "token")String token,
                                    @RequestParam(required = true, value = "courseId")Integer courseId,
                                    @RequestParam(required = true, value = "normalProportion")Double normalProportion,
-                                   @RequestParam(required = true, value = "examProportion")Double examProportion){
-        return teacherProportionService.updateCourseProportion(courseId, JWTUtils.getUserName(token), normalProportion, examProportion);
+                                   @RequestParam(required = true, value = "examProportion")Double examProportion,
+                                   @RequestParam(required = true, value = "teacherId")String teacherId){
+        return teacherProportionService.updateCourseProportion(courseId, teacherId, normalProportion, examProportion);
     }
 }

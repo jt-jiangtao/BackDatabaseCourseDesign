@@ -14,4 +14,7 @@ public interface UserRoleService {
 
     Boolean deptManagerHasAccessToDept(String id, String deptId);
 
+    boolean courseCanInput(String courseId);
+
+    Boolean sameDept(String teacherId, String id);
 }

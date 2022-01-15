@@ -3,6 +3,7 @@ package com.jw.backdatabasecoursedesign.service.impl;
 import com.jw.backdatabasecoursedesign.entity.right.UserRight;
 import com.jw.backdatabasecoursedesign.mapper.UserRoleMapper;
 import com.jw.backdatabasecoursedesign.service.UserRoleService;
+import com.jw.backdatabasecoursedesign.utils.NowYearTerms;
 import com.jw.backdatabasecoursedesign.utils.UserRightParseUtils;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -50,6 +51,22 @@ public class UserRoleServiceImpl implements UserRoleService {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         UserRoleMapper userRoleMapper = sqlSession.getMapper(UserRoleMapper.class);
         int count = userRoleMapper.deptManagerHasAccessToDept(id, deptId);
+        return count == 1;
+    }
+
+    @Override
+    public boolean courseCanInput(String courseId) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserRoleMapper userRoleMapper = sqlSession.getMapper(UserRoleMapper.class);
+        int count = userRoleMapper.courseYearTerm(courseId, NowYearTerms.nowYear(), NowYearTerms.nowTerm());
+        return count == 1;
+    }
+
+    @Override
+    public Boolean sameDept(String teacherId, String id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserRoleMapper userRoleMapper = sqlSession.getMapper(UserRoleMapper.class);
+        int count = userRoleMapper.sameDept(teacherId, id);
         return count == 1;
     }
 }

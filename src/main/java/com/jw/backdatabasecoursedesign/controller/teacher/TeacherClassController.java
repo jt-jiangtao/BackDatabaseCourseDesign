@@ -17,12 +17,13 @@ public class TeacherClassController {
     TeacherClassService teacherClassService;
 
     @PostMapping("/course")
-    public Object getTeacherCourse(@RequestParam(required = true, value = "id") String id,
+    public Object getTeacherCourse(@RequestParam(required = true, value = "token") String token,
                                    @RequestParam(required = false, value = "year", defaultValue = "") String year,
-                                   @RequestParam(required = false, value = "term", defaultValue = "") String term) {
+                                   @RequestParam(required = false, value = "term", defaultValue = "") String term,
+                                   @RequestParam(required = true, value = "teacherId")String teacherId) {
         if (year.equals("")) year = NowYearTerms.nowYear();
         if (term.equals("")) term = NowYearTerms.nowTerm();
-        return teacherClassService.getTeacherClass(id, year, term);
+        return teacherClassService.getTeacherClass(teacherId, year, term);
     }
 
 }
