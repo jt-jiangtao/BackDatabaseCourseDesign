@@ -229,7 +229,7 @@ public interface TeacherGradeMapper {
             "            )\n" +
             "          AND status = 1\n" +
             "          AND teacherId = #{id}\n" +
-            "          AND courseId = #{courseId};</script>")
+            "          <if test=\"courseId != -1\"> AND courseId = #{courseId} </if>;</script>")
     List<Map<String, Object>> teacherUndoOrdinaryItemScore(String id, Integer courseId);
 
     @Select("SELECT *\n" +

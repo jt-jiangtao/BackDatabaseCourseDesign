@@ -2,6 +2,7 @@ package com.jw.backdatabasecoursedesign.service.impl;
 
 import com.jw.backdatabasecoursedesign.mapper.DepartmentGradeMapper;
 import com.jw.backdatabasecoursedesign.service.DepartmentInfoService;
+import com.jw.backdatabasecoursedesign.utils.TimestampTransformUtils;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -10,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: jiangtao
@@ -45,7 +49,13 @@ public class DepartmentInfoServiceImpl implements DepartmentInfoService {
     public Object departmentTeacher(Integer specialtyId, Integer deptId) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         DepartmentGradeMapper departmentGradeMapper = sqlSession.getMapper(DepartmentGradeMapper.class);
-        return departmentGradeMapper.departmentTeacher(specialtyId, deptId);
+        List<Map<String, Object>> res = departmentGradeMapper.departmentTeacher(specialtyId, deptId);
+        for (int i = 0; i < res.size(); i++) {
+            Map<String, Object> map = res.get(i);
+            map.put("birthday", TimestampTransformUtils.transform(String.valueOf(((Date) map.get("birthday")).getTime())));
+            map.put("entryTime", TimestampTransformUtils.transform(String.valueOf(((Date) map.get("entryTime")).getTime())));
+        }
+        return res;
     }
 
     @Override

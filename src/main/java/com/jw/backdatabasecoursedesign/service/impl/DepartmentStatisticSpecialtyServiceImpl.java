@@ -50,7 +50,10 @@ public class DepartmentStatisticSpecialtyServiceImpl implements DepartmentStatis
                 normalStudent.setScorePoint(scoreCalculated / scoreSum);
             }
         }
-        Collections.sort(students, (o1, o2) -> (int) (o1.getScorePoint() - o2.getScorePoint()));
+        students.sort((o1, o2) -> {
+            if (o1.getScorePoint() == null || o2.getScorePoint() == null) return -1;
+            return (int) (o1.getScorePoint() - o2.getScorePoint());
+        });
         return students;
     }
 
@@ -104,8 +107,10 @@ public class DepartmentStatisticSpecialtyServiceImpl implements DepartmentStatis
                 scorePointSum += normalStudent.getScorePoint();
             }
         }
-        Collections.sort(students, (o1, o2) -> (int) (o1.getScorePoint() - o2.getScorePoint()));
-
+        students.sort((o1, o2) -> {
+            if (o1.getScorePoint() == null || o2.getScorePoint() == null) return -1;
+            return (int) (o1.getScorePoint() - o2.getScorePoint());
+        });
         Map<String, Object> res = new HashMap<>();
         if (! students.isEmpty()){
             res.put("min", students.get(0).getScorePoint());
